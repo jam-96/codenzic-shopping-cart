@@ -1,124 +1,200 @@
-# Cartly — Shopping Cart Application
+# Cartly – Shopping Cart Application
 
-A responsive shopping-cart assignment project built with React 19, TypeScript, Vite, Bootstrap, Zustand, TanStack Query, Zod, and localStorage.
+A modern, responsive shopping cart application built using React 19, TypeScript, and Vite. The application allows users to browse products, search and filter items, manage cart quantities, calculate order totals, and complete a demo checkout. It also includes light and dark themes for a better user experience.
 
-## Features
+## 1. Project Overview
 
-- Fetches products from the public DummyJSON products API.
-- Validates the product API response with Zod before rendering it.
-- Responsive product grid showing image, title, category, price, rating, and add-to-cart action.
-- Light/dark mode toggle in the header; theme preference is remembered in localStorage.
-- Search by product title, filter by category and maximum price, clear filters, and sort by price/rating.
-- Loading, error, empty-search, and empty-cart states.
-- Zustand global cart state with add, remove, clear, and quantity controls.
-- Cart quantity is constrained to 1–5 per product.
-- Cart persists across refreshes using Zustand's `persist` middleware and localStorage.
-- Cart summary calculates subtotal, 5% tax, 10% discount when subtotal is greater than $100, and final total.
-- Checkout is disabled when subtotal is below $10, with an explanatory message.
-- Shipping form is managed with React state and validated with Zod (no form library).
-- Read-only payment summary and demo Place Order success state. No payment gateway is connected.
+Cartly is a frontend shopping cart application developed as part of the React JS Developer / Intern technical assignment for Codenzic Innovations.
 
-## Theme mode
+The main objective of this project is to demonstrate frontend development skills, state management, API integration, form validation, responsive UI design, and persistent cart storage.
 
-Use the sun/moon button in the header to switch between light and dark themes. Cartly saves the selected theme as `cartly-theme` in localStorage, so it stays selected after refresh.
+## 2. Technologies Used
 
-## Tech stack
+- **React 19** – Building reusable UI components.
+- **TypeScript** – Type safety and maintainable code.
+- **Vite** – Development server and build tool.
+- **Zustand** – Global shopping cart state management.
+- **TanStack Query** – API data fetching, caching, and loading/error states.
+- **Zod** – Runtime validation of API responses and form data.
+- **localStorage** – Persisting cart data and theme preferences.
+- **CSS** – Responsive styling and light/dark themes.
+- **DummyJSON Products API** – Providing sample product data.
+- **pnpm / npm** – Package management and project scripts.
 
-- React 19 + TypeScript
-- Vite
-- Bootstrap 5 plus custom CSS
-- Zustand
-- TanStack Query
-- Zod
-- pnpm
-- DummyJSON API
+## 3. Features
 
-## Requirements
+- Display products fetched from an external API.
+- Search products by name.
+- Filter and sort products.
+- Add products to the shopping cart.
+- Increase or decrease product quantities.
+- Remove individual cart items and clear the cart.
+- Persist cart data using localStorage.
+- Calculate subtotal, tax, discounts, and final total.
+- Validate shipping information using Zod.
+- Display an order summary and demo checkout confirmation.
+- Switch between light mode and dark mode.
+- Save the selected theme preference.
+- Responsive interface for desktop, tablet, and mobile devices.
 
-Install a current Node.js LTS release and pnpm.
+## 4. API Used
 
-## Setup
+**DummyJSON Products API**
+
+Base URL: [https://dummyjson.com/products](https://dummyjson.com/products)
+
+Example endpoint:
+
+`https://dummyjson.com/products`
+
+The application uses this API to retrieve sample product information, such as product titles, prices, images, categories, and ratings.
+
+The API provides demonstration data. It does not represent a real inventory or payment system.
+
+## 5. Project Setup
+
+### Prerequisites
+
+Install the following software:
+
+- Node.js (LTS version recommended)
+- npm or pnpm
+- Visual Studio Code (recommended)
+
+### Clone the repository
 
 ```bash
-pnpm install
-pnpm dev
+git clone https://github.com/jam-96/codenzic-shopping-cart
+cd codenzic-shopping-cart
 ```
 
-Vite prints a local URL (usually `http://localhost:5173`). Open it in your browser.
+### Install dependencies
 
-## Production build
+Using npm:
 
 ```bash
-pnpm build
-pnpm preview
+npm install
 ```
 
-The build command runs TypeScript checks and creates the production files in `dist/`.
+Use the package manager appropriate for your project lockfile.
 
-## API used
+## 6. Commands to Run the Project
 
-`https://dummyjson.com/products?limit=100`
+### Start the development server
 
-Product data is fetched with `fetchProducts()` in `src/api/products.ts`. TanStack Query manages fetching, caching, loading, and error states. Zod validates the API response.
-
-## Project structure
-
-```text
-src/
-  api/products.ts             API request and Zod response validation
-  components/
-    CartDrawer.tsx            Cart UI and cart summary
-    Checkout.tsx              Shipping form and order confirmation
-    Header.tsx                Site header and cart count
-    ProductCard.tsx           Product card
-  hooks/useProductFilters.ts  Search, category/price filters, sorting
-  store/cartStore.ts          Zustand cart state and persistence
-  types/product.ts            Product schema and TypeScript type
-  utils/cartTotals.ts         Cart calculations and currency formatting
-  validation/shippingSchema.ts Zod shipping form schema
-  App.tsx                     Main page composition
-  main.tsx                    React entry point and QueryClient provider
-  styles.css                  Responsive visual styling
+```bash
+npm run dev
 ```
 
-## Calculation rules
+Open the local URL displayed in the terminal, usually:
 
-- Subtotal = sum of product price × quantity.
-- Tax = 5% of subtotal.
-- Discount = 10% of subtotal only when subtotal is greater than $100.
-- Final total = subtotal + tax − discount.
-- Checkout eligibility uses the assignment's minimum $10 subtotal rule.
+`http://localhost:5173/`
 
-## Known limitations
+### Build for production
 
-- This is a demonstration project; it does not connect to a payment gateway or create a real backend order.
-- The public DummyJSON API and network connection are required to load products.
-- Currency is displayed in USD to match the assignment's price examples.
-- Product availability/stock is displayed by the API but is not used to restrict cart quantities because the assignment defines a per-item quantity cap of five.
+```bash
+npm run build
+```
 
-## Deployment
+### Preview the production build
 
-### Vercel
+```bash
+npm run preview
+```
 
-1. Push this project to a GitHub repository.
-2. Import the repository in Vercel.
-3. Use build command `pnpm build`.
-4. Use output directory `dist`.
-5. Deploy and test the public URL.
+## 7. State Management and Validation
 
-### Netlify
+### Zustand
 
-1. Import the GitHub repository in Netlify.
-2. Build command: `pnpm build`.
-3. Publish directory: `dist`.
-4. Deploy and test the public URL.
+Zustand manages shared cart state, including cart items and quantity updates. Its persistence middleware can save and restore cart data through localStorage.
 
-## Before submission
+### TanStack Query
 
-- [ ] Run `pnpm install` and `pnpm build`.
-- [ ] Test search, filters, sorting, and clear filters.
-- [ ] Test cart add/remove/quantity limits and persistence after refresh.
-- [ ] Check subtotal, tax, discount threshold, and $10 checkout minimum.
-- [ ] Test each required shipping field and invalid email.
-- [ ] Place a demo order and confirm the cart clears.
-- [ ] Add the GitHub repository and live deployment links to your submission email.
+TanStack Query manages product fetching and supports caching, loading states, and error handling.
+
+### Zod
+
+Zod validates incoming product data and shipping form information at runtime, helping the application handle invalid data safely.
+
+### localStorage
+
+localStorage preserves selected application preferences and persisted cart data across page refreshes.
+
+## 8. Pricing and Checkout
+
+The application calculates the order amount from the products in the cart.
+
+The configured pricing rules include:
+
+- Tax: 5%.
+- Discount: 10% when the subtotal exceeds $100.
+- Minimum checkout subtotal: $10.
+
+These are demonstration rules and can be adjusted according to the assignment requirements.
+
+The checkout process collects shipping information, validates the form, displays an order confirmation, and clears the cart after a successful demo order.
+
+No real payment is processed.
+
+## 9. Dark Mode
+
+The application includes a theme toggle that allows users to switch between light and dark modes.
+
+The selected theme is saved in localStorage so that the preference can be restored when the application is opened again.
+
+The theme styling is intended to maintain readability and consistency across the product listing, cart, and checkout interface.
+
+## 10. Deployment
+
+The application can be deployed using Vercel, Netlify, or Cloudflare Pages.
+
+### Recommended build settings
+
+- Framework preset: Vite
+- Build command: `npm run build`
+- Output directory: `dist`
+- Root directory: Project root containing `package.json`
+
+### Deployment steps
+
+1. Push the project to a GitHub repository.
+2. Sign in to your preferred deployment platform.
+3. Import the GitHub repository.
+4. Configure the build settings.
+5. Deploy the application.
+6. Open the generated public URL and verify the main features.
+
+The deployed URL should be added to this README after deployment.
+
+**Live Application:** YOUR_DEPLOYED_APPLICATION_URL
+
+**GitHub Repository:** [https://github.com/jam-96/codenzic-shopping-cart](https://github.com/jam-96/codenzic-shopping-cart)
+
+Replace these placeholders with the actual links before submitting the assignment.
+
+## 11. Known Limitations
+
+- Product data depends on the availability of the DummyJSON API.
+- Product information is sample data and is not connected to a real store inventory.
+- Checkout is for demonstration purposes only.
+- No real payment gateway or order-processing backend is integrated.
+- Cart and theme preferences are stored locally in the browser.
+- Clearing browser storage may remove locally persisted application data.
+- The application does not provide authenticated user accounts or server-side order history.
+
+## 12. Future Improvements
+
+- Add user authentication and account management.
+- Integrate a backend database for products and orders.
+- Add a secure payment gateway.
+- Implement a wishlist and product reviews.
+- Add automated unit and integration tests.
+- Improve accessibility and loading performance.
+
+## 13. Author
+
+Developed as a technical assignment for the React JS Developer / Intern position at **Codenzic Innovations**.
+
+## 14. License
+
+This project was created for educational and technical evaluation purposes.
