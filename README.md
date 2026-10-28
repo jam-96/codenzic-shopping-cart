@@ -166,7 +166,7 @@ The application can be deployed using Vercel, Netlify, or Cloudflare Pages.
 
 The deployed URL should be added to this README after deployment.
 
-**Live Application:** YOUR_DEPLOYED_APPLICATION_URL
+**Live Application:** https://codenzic-shopping-cart-f5wz.vercel.app
 
 **GitHub Repository:** [https://github.com/jam-96/codenzic-shopping-cart](https://github.com/jam-96/codenzic-shopping-cart)
 
